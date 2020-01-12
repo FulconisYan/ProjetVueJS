@@ -2,7 +2,11 @@
   <div id="app">
     <router-link to="/">[Home]</router-link>
     <router-link to="/restaurants">[Restaurants]</router-link>
+  
+    <v-app>
      <router-view></router-view>
+    </v-app>
+    
   </div>
 </template>
 

@@ -1,9 +1,31 @@
 <template>
-<div>
-  <p>
-    Rechercher par nom:
-    <input type="text" v-model="nomRecherche" v-on:input="getDataFromServer()" />
-  </p>
+
+<div id="restaurants">
+<v-form>
+<v-container fluid>
+  <v-row>
+    <v-col
+      cols="50"
+      sm="6"
+    ><v-text-field class="alignement" type="text" v-model="nomRecherche" label="Recherche par nom" v-on:input="getDataFromServer()" > </v-text-field>
+  </v-col>
+  </v-row>
+</v-container>
+  </v-form>
+    <v-container fluid>
+    <v-col cols="12"
+    sm="6">
+        <v-subheader class="pl-0">Nombre de restaurants par page</v-subheader>
+        <v-slider
+          @end="getDataFromServer"
+          v-model="pagesize"
+          :thumb-size="20"
+          thumb-label="always"
+          thumb-color="#01579B"
+        ></v-slider>
+        
+      </v-col>
+      </v-container>
   <p>
     Nombre de restaurants par page :
     <input
@@ -16,11 +38,12 @@
     />
     {{pagesize}}
   </p>
+  <br/>
   <h1>Nombre de restaurants : {{nbRestaurants}}</h1>
-  <button v-on:click="pagePrecedente()" v-bind:disabled="page==0">Précédent</button>
-  <button v-on:click="pageSuivante()" :disabled="page == nbPagesDeResultats">Suivant</button>
- 
-  <H1>TABLE VUE-MATERIAL</H1>
+  <br/>
+  <v-btn v-on:click="pagePrecedente()" v-bind:disabled="page==0">Précédent</v-btn>
+  <v-btn v-on:click="pageSuivante()" :disabled="page == nbPagesDeResultats">Suivant</v-btn>
+  <br/> <br/>
         <md-table v-model="restaurants" md-sort="name" md-sort-order="asc" md-card md-fixed-header>
             <md-table-toolbar>
                 <div class="md-toolbar-section-start">
@@ -129,5 +152,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 </style>

@@ -1,18 +1,33 @@
+
 <template>
 <div>
+<br/>
+<div>
+  <img width="400px" v-bind:src="image"/>
+</div>
   <h1>Detail du restaurant d'id = {{id}}</h1>
   <p> Adresse : {{address}} </p>
   <p> Description de quartier : {{descrQuartier}} </p>
   <p> Longitude : {{longitude}} </p>
   <p> Latitude : {{latitude}} </p>
   <p> Notes des utilisateurs : {{note1}}  {{note2}}  {{note3}}  {{note4}} </p>
+  <restaurant-evaluation>
+  </restaurant-evaluation>
   </div>
+
 </template>
 
 <script>
+
+import RestaurantEvaluation from './RestaurantEvaluation'
+
 export default {
+
   name: "RestaurantDetail",
   props: {},
+  components : {
+    RestaurantEvaluation
+  },
   computed: { // computed data, permet de définir des data "calculées"
       id() {
         // on y accèdera par {{id}} dans le template, et par this.id
@@ -35,6 +50,7 @@ export default {
       page: 0,
       pagesize: 10,
       nomRecherche: "",
+      image:"",
       nbPagesDeResultats: 0,
       descrQuartier:"",
       apiURL: "http://localhost:8080/api/restaurants/"
@@ -58,7 +74,6 @@ export default {
           return reponseJSON.json();
         })
         .then(reponseJS => {
-          console.log(reponseJS)
           this.address = reponseJS["restaurant"]["address"]["building"] + " "+ reponseJS["restaurant"]["address"]["street"]
           this.descrQuartier = reponseJS["restaurant"]["borough"]
           this.longitude = reponseJS["restaurant"]["address"]["coord"][0]
@@ -67,8 +82,8 @@ export default {
           this.note2 = reponseJS["restaurant"]["grades"][1]["grade"]+","
           this.note3 = reponseJS["restaurant"]["grades"][2]["grade"]+","
           this.note4 = reponseJS["restaurant"]["grades"][3]["grade"]
-          
-          
+          this.image = reponseJS["restaurant"]["image"]
+          console.log(this.image)
         });
     },
     
