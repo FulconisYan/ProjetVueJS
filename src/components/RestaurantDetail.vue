@@ -1,32 +1,34 @@
 
 <template>
+
 <div>
 <br/>
-<div>
   <img width="400px" v-bind:src="image"/>
-</div>
+  <br/> <br/> <br/>
+
   <h1>Detail du restaurant d'id = {{id}}</h1>
   <p> Adresse : {{address}} </p>
   <p> Description de quartier : {{descrQuartier}} </p>
   <p> Longitude : {{longitude}} </p>
   <p> Latitude : {{latitude}} </p>
-  <p> Notes des utilisateurs : {{note1}}  {{note2}}  {{note3}}  {{note4}} </p>
-  <restaurant-evaluation>
-  </restaurant-evaluation>
+  <restaurant-evaluation :grade="grade"/>
+  <restaurant-liste :menuGastronomiqe="menuGastronomique"/>
   </div>
 
 </template>
 
 <script>
 
-import RestaurantEvaluation from './RestaurantEvaluation'
+import RestaurantEvaluation from './RestaurantEvaluation';
+import RestaurantListe from './RestaurantListe';
 
 export default {
 
   name: "RestaurantDetail",
   props: {},
   components : {
-    RestaurantEvaluation
+    RestaurantEvaluation,
+    RestaurantListe
   },
   computed: { // computed data, permet de définir des data "calculées"
       id() {
@@ -78,10 +80,8 @@ export default {
           this.descrQuartier = reponseJS["restaurant"]["borough"]
           this.longitude = reponseJS["restaurant"]["address"]["coord"][0]
           this.latitude = reponseJS["restaurant"]["address"]["coord"][1]
-          this.note1 = reponseJS["restaurant"]["grades"][0]["grade"]+","
-          this.note2 = reponseJS["restaurant"]["grades"][1]["grade"]+","
-          this.note3 = reponseJS["restaurant"]["grades"][2]["grade"]+","
-          this.note4 = reponseJS["restaurant"]["grades"][3]["grade"]
+          this.grade = reponseJS["restaurant"]["grades"]
+          this.menu = reponseJS["menu"]
           this.image = reponseJS["restaurant"]["image"]
           console.log(this.image)
         });

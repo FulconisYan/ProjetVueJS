@@ -26,18 +26,6 @@
         
       </v-col>
       </v-container>
-  <p>
-    Nombre de restaurants par page :
-    <input
-      type="range"
-      min="2"
-      max="100"
-      value="10"
-      v-on:input="getDataFromServer()"
-      v-model="pagesize"
-    />
-    {{pagesize}}
-  </p>
   <br/>
   <h1>Nombre de restaurants : {{nbRestaurants}}</h1>
   <br/>
@@ -59,8 +47,6 @@
         md-label="No users found"
         :md-description="`No user found for this '${nomRecherche}' query. Try a different search term or create a new user.`">
       </md-table-empty-state>
-
-            
 
             <md-table-row slot="md-table-row" slot-scope="{ item }">
                 <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
