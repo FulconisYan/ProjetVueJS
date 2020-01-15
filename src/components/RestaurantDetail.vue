@@ -3,16 +3,19 @@
 
 <div>
 <br/>
-  <img width="400px" v-bind:src="image"/>
+<div style="display:flex">
+  <img width="400px" style="margin-left: 200px" v-bind:src="image"/>
+  <restaurant-map :latitude="latitude" :longitude="longitude"/>
   <br/> <br/> <br/>
-
+</div>
   <h1>Detail du restaurant d'id = {{id}}</h1>
   <p> Adresse : {{address}} </p>
   <p> Description de quartier : {{descrQuartier}} </p>
   <p> Longitude : {{longitude}} </p>
   <p> Latitude : {{latitude}} </p>
   <restaurant-evaluation :grade="grade"/>
-  <restaurant-liste :menuGastronomiqe="menuGastronomique"/>
+  <restaurant-liste />
+  
   </div>
 
 </template>
@@ -21,6 +24,7 @@
 
 import RestaurantEvaluation from './RestaurantEvaluation';
 import RestaurantListe from './RestaurantListe';
+import RestaurantMap from './RestaurantMap';
 
 export default {
 
@@ -28,7 +32,8 @@ export default {
   props: {},
   components : {
     RestaurantEvaluation,
-    RestaurantListe
+    RestaurantListe,
+    RestaurantMap
   },
   computed: { // computed data, permet de définir des data "calculées"
       id() {
@@ -39,15 +44,12 @@ export default {
   },
   data: function() {
     return {
+      latitude:0,
+      longitude:0,
+      grade:"",
       restaurant:"",
       nom: "",
       address:"",
-      longitude:"",
-      latitude:"",
-      note1:"",
-      note2:"",
-      note3:"",
-      note4:"",
       cuisine: "",
       page: 0,
       pagesize: 10,
@@ -78,12 +80,11 @@ export default {
         .then(reponseJS => {
           this.address = reponseJS["restaurant"]["address"]["building"] + " "+ reponseJS["restaurant"]["address"]["street"]
           this.descrQuartier = reponseJS["restaurant"]["borough"]
-          this.longitude = reponseJS["restaurant"]["address"]["coord"][0]
-          this.latitude = reponseJS["restaurant"]["address"]["coord"][1]
+          this.latitude= reponseJS["restaurant"]["address"]["coord"][0]
+          this.longitude = reponseJS["restaurant"]["address"]["coord"][1]
           this.grade = reponseJS["restaurant"]["grades"]
           this.menu = reponseJS["menu"]
           this.image = reponseJS["restaurant"]["image"]
-          console.log(this.image)
         });
     },
     

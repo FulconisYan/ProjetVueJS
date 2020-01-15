@@ -8,8 +8,14 @@ import Restaurants from "./components/Restaurants.vue";
 import RestaurantDetail from "./components/RestaurantDetail.vue";
 import HelloWorld from "./components/HelloWorld.vue";
 import vuetify from './plugins/vuetify';
+import * as VueGoogleMaps from "vue2-google-maps";
 
 // configs...
+Vue.use(VueGoogleMaps, {
+  load : {
+    key : "AIzaSyAC4a1iL7-jC1dT9JkJ3TNIhQpZiGUHs3I"
+  }
+});
 Vue.use(VueMaterial)
 Vue.config.productionTip = false
 Vue.use(VueRouter)

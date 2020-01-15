@@ -8,7 +8,7 @@
       background-color="indigo lighten-3"
       color="indigo"
       size="64"
-      readonly="true"
+      readonly=1
     ></v-rating>
     {{item["grade"]}}
         </li>
@@ -24,7 +24,7 @@
         props: {grade: Array},
         data: function() {
         return {
-            rating:"3"
+            rating:3
         }
          },
          methods: {
